@@ -372,7 +372,7 @@ class ElectionMap {
         <thead>
           <tr>
             <th></th>
-            <th class="cr">2020</th>
+            <th class="cr">2021</th>
             <th class="cr">2024</th>
           </tr>
         </thead>
