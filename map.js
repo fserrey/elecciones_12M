@@ -400,10 +400,10 @@ class ElectionMap {
   popupResultsTable(p) {
     let results;
     let year;
-    if (this.currentYear === '2020') {
+    if (this.currentYear === '2021') {
       if (!p.last_results) return '';
       results = this.popupStrResultsToObj(p.last_results);
-      year = 2020;
+      year = 2021;
     } else {
       if (!p.curr_results) return '';
       results = this.popupStrResultsToObj(p.curr_results);
