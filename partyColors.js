@@ -27,6 +27,8 @@ window._partyColors = {
     "PUMJ": "#F9CB9C",
     "UPN": "#E51A22",
     "PSC": "#e02020", 
+    "ECP": "#9370DB",
+    "PDCAT":"#1C4C96",
     
     "PCTE": "#E3061A",
     "EXISTE": "#007F51",

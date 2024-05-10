@@ -139,7 +139,7 @@ class ElectionMap {
       this.legendLabels[`bloques${year}`] = 'Porcentaje de voto a bloque';
       parties.forEach((party) => {
         let partyKey = party.toLowerCase();
-        this.legendLabels[`${partyKey}${year}`] = `Porcentaje de voto para ${party} en ${year}`;
+        this.legendLabels[`${partyKey}${year}`] = `Porcentaje de voto en ${year}`;
         this.legendLabels[`${partyKey}diff${year}`] = `Cambio en porcentaje de voto para ${party}`;
       });
     });

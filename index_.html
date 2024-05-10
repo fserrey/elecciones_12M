@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv='cache-control' content='no-cache'>
+  <meta http-equiv='expires' content='0'>
+  <meta http-equiv='pragma' content='no-cache'>
+  <title>Elecciones Parlamento Catalunya 2024 - Municipios - La Vanguardia</title>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" rel="stylesheet" type="text/css"/>
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css" rel="stylesheet" type="text/css"/>
+  <link href="./styles.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+  <div class="map-wrapper">
+    <div id="map-container"></div>
+    <!-- Map controls -->
+    <div id="custom-controls" class="map-overflow map-controls">
+      <div class="map-overflow-wrap">
+        <div class="map-controls-hint">Selecciona un mapa:</div>
+        <div class="map-controls-years">
+          <button class="map-control map-control--year js-year is-active" data-year="2024">2024</button>
+          <button class="map-control map-control--year js-year" data-year="2021">2021</button>
+        </div>
+        <div class="map-controls-fill">
+          <!-- Buttons will be dynamically updated based on the year -->
+        </div>
+      </div>
+    </div>
+    <!-- Map zoom out -->
+    <div id="custom-buttons" class="map-overflow map-buttons">
+      <button id="zoom-out" class="zoom-out" title="Zoom out">
+        <img src="img/catalunya.png" alt="Zoom out">
+      </button>
+    </div>
+    <!-- Legend -->
+    <div id="legends" class="map-legends">
+      <div class="map-legends-wrap">
+        <header id="legends-head" class="map-legends-header"></header>
+        <div id="legends-body" class="map-legends-body"></div>
+      </div>
+    </div>
+  </div>
+  <script src="./map.js"></script>
+  <script src="./partyColors.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const mapSettings = {
+        accessToken: 'pk.eyJ1IjoiZnNlcnJleSIsImEiOiJjbHVyNm9uMzEwNDJrMmlxcmllbnk0N2VzIn0.uoB9jWL2GB82Lzv12t4e1Q',
+        container: 'map-container',
+        style: 'mapbox://styles/laur05/clvzejo7w014w01qu65sg9uau',
+        source: 'mapbox://fserrey.electionscat2021_adm4?fresh=true',
+        sourceLayer: 'electionscat2021_adm4',
+        center: [1.55, 41.82],
+        zoom: window.innerWidth < 900 ? 7 : 8,
+        minZoom: window.innerWidth < 900 ? 5.5 : 6,
+        years: ['2021', '2024'],
+        parties: ['PP', 'PSOE', 'CS', 'ERC', 'PSC', 'JXCAT', 'PDCAT', 'UP', 'CUP', 'COMUNS', 'SUMAR', 'VOX'],
+        partyColors: window._partyColors, // Ensure this is defined in partyColors.js or within this script
+        scrollZoom: true,
+      };
+
+      // Assuming ElectionMap is defined in `map.js`
+      let map = new ElectionMap(mapSettings.accessToken, mapSettings);
+    });
+  </script>
+</body>
+</html>
