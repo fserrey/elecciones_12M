@@ -35,7 +35,7 @@
           <button class="map-control map-control--fill js-control" data-fill="VOX">VOX</button>
           
           <button class="map-control map-control--fill js-control" data-fill="CUP">CUP</button>
-          <button class="map-control map-control--fill js-control" data-fill="Sumar">SUMAR</button>
+          <button class="map-control map-control--fill js-control" data-fill="SUMAR">SUMAR</button>
           
           <button class="map-control map-control--fill js-control" data-fill="UP">ECP</button>
 
@@ -82,12 +82,12 @@
       const isMobile = window.innerWidth < 900;
       const map = new ElectionMap('pk.eyJ1IjoiZnNlcnJleSIsImEiOiJjbHVyNm9uMzEwNDJrMmlxcmllbnk0N2VzIn0.uoB9jWL2GB82Lzv12t4e1Q', {
         container: 'map-container',
-        style: 'mapbox://styles/laur05/clv6v11hs00mc01oc38ss9aqk?fresh=true', 
+        style: 'mapbox://styles/fserrey/clvzbin6902a801qre8os64qn?fresh=true', 
         source: 'mapbox://fserrey.electionscat2024_adm7?fresh=true',       
         sourceLayer: 'electionscat2024_adm7',
         center: [1.75, 41.82],
-        zoom: isMobile ? 8.95 : 9,
-        minZoom: isMobile ? 5.5 : 6,
+        zoom: isMobile ? 8.95 : 9.5,
+        minZoom: isMobile ? 5.5 : 7,
         initialSelect: 'winner2024',
         // hash: true,
         scrollZoom: true,
