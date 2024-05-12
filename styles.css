@@ -448,3 +448,8 @@ html, body {
         top: 118px;
     }
 }
+
+.bold-button {
+    font-weight: bold;  /* Makes the text bold */
+  }
+  
