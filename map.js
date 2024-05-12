@@ -135,11 +135,12 @@ class ElectionMap {
   setLegendLabels(years, parties) {
     this.legendLabels = {};
     years.forEach((year) => {
-      this.legendLabels[`winner${year}`] = 'Ganador del año ' + year;
+      this.legendLabels[`winner${year}`] = 'Ganador del año '; // + year;
       this.legendLabels[`bloques${year}`] = 'Porcentaje de voto a bloque';
       parties.forEach((party) => {
         let partyKey = party.toLowerCase();
-        this.legendLabels[`${partyKey}${year}`] = `Porcentaje de voto en ${year}`;
+        this.legendLabels[`${partyKey}${year}`] = `Porcentaje de voto`;
+        //this.legendLabels[`${partyKey}${year}`] = `Porcentaje de voto en ${year}`;
         this.legendLabels[`${partyKey}diff${year}`] = `Cambio en porcentaje de voto para ${party}`;
       });
     });
