@@ -24,7 +24,7 @@
     <div id="custom-controls" class="map-overflow map-controls" style="visibility: visible;">
       <!-- Removed hidden class and added inline style for visibility -->
       <div class="map-overflow-wrap">
-        <div class="map-controls-hint">Resultados Elecciones 2024. Selecciona un año y opción:</div>
+        <div class="map-controls-hint">Selecciona un año y partido:</div>
         <div class="map-controls-years">
           <button class="map-control map-control--year" data-year="2024"
             onclick="updatePartyButtons(2024)">2024</button>
@@ -100,9 +100,13 @@
         //if (map && mapLoaded) {
         //  map.currentYear = year.toString();
         //  selectParty(`winner${year}`, year); // This uses dynamic key based on the year
-//
+        //
         //}
-        selectParty(`winner${year}`, year);
+        if (year === 2021) {
+          selectParty('winner2021', year);
+        } else {
+          selectParty(`winner${year}`, year); // For other years, maintain existing logic
+        }
 
         // Update the style of year buttons
         const yearBtns = document.querySelectorAll('.map-control--year');
