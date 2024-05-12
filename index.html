@@ -24,7 +24,7 @@
     <div id="custom-controls" class="map-overflow map-controls" style="visibility: visible;">
       <!-- Removed hidden class and added inline style for visibility -->
       <div class="map-overflow-wrap">
-        <div class="map-controls-hint">Selecciona un mapa:</div>
+        <div class="map-controls-hint">Resultados Elecciones 2024. Selecciona un año y opción:</div>
         <div class="map-controls-years">
           <button class="map-control map-control--year" data-year="2024"
             onclick="updatePartyButtons(2024)">2024</button>
@@ -54,12 +54,13 @@
   <script src="./map.js"></script>
   <script src="./partyColors.js"></script>
   <script>
+    let map;
     document.addEventListener('DOMContentLoaded', function () {
       let mapLoaded = false;
       mapboxgl.clearStorage();
       const loadMap = () => {
         const isMobile = window.innerWidth < 900;
-        const map = new ElectionMap('pk.eyJ1IjoibGF1cjA1IiwiYSI6ImNqdnoyaTd3cDBrNjk0NW1xdGpyYWttenIifQ.K5bENvQciGvPOfnO9ERWzw', {
+        map = new ElectionMap('pk.eyJ1IjoibGF1cjA1IiwiYSI6ImNqdnoyaTd3cDBrNjk0NW1xdGpyYWttenIifQ.K5bENvQciGvPOfnO9ERWzw', {
           container: 'map-container',
           style: 'mapbox://styles/laur05/clvzejo7w014w01qu65sg9uau',
           source: 'mapbox://laur05.electionscat2024_adm4?fresh=true',
@@ -71,7 +72,7 @@
           // hash: true,
           scrollZoom: true,
           years: [2021, 2024],
-          parties: ['PP', 'PSOE', 'CS', 'ERC', 'PSC', 'JXCAT', 'PDECAT', 'ECP', 'CUP', 'COMUNS', 'SUMAR', 'VOX', 'winner','ALIANZACAT'],
+          parties: ['PP', 'PSOE', 'CS', 'ERC', 'PSC', 'JXCAT', 'PDECAT', 'ECP', 'CUP', 'COMUNS', 'SUMAR', 'VOX', 'winner', 'ALIANZACAT'],
           partyColors: window._partyColors,
         });
         mapLoaded = true;
@@ -79,7 +80,7 @@
       loadMap(); // Load the map immediately after defining
 
       const partyData = {
-        2024: { 'Ganador': 'winner', 'PSC': 'PSC', 'ERC': 'ERC', 'Junts': 'JXCAT', 'Vox': 'VOX', 'Sumar': 'Sumar', 'CUP': 'CUP', 'CS': 'CS', 'PP': 'PP', 'Aliança Cat':'ALIANZACAT' },
+        2024: { 'Ganador': 'winner', 'PSC': 'PSC', 'ERC': 'ERC', 'Junts': 'JXCAT', 'Vox': 'VOX', 'Sumar': 'Sumar', 'CUP': 'CUP', 'CS': 'CS', 'PP': 'PP', 'Aliança Cat': 'ALIANZACAT' },
         2021: { 'Ganador': 'winner', 'PSC': 'PSC', 'ERC': 'ERC', 'Junts': 'JXCAT', 'Vox': 'VOX', 'ECP': 'ECP', 'CUP': 'CUP', 'CS': 'CS', 'PP': 'PP' }
       };
 
@@ -95,6 +96,13 @@
           button.onclick = function () { selectParty(dataValue, year); };
           container.appendChild(button);
         });
+
+        //if (map && mapLoaded) {
+        //  map.currentYear = year.toString();
+        //  selectParty(`winner${year}`, year); // This uses dynamic key based on the year
+//
+        //}
+        selectParty(`winner${year}`, year);
 
         // Update the style of year buttons
         const yearBtns = document.querySelectorAll('.map-control--year');
@@ -120,12 +128,14 @@
         }
       };
 
-      function selectParty(party, year) {
+      window.selectParty = function (party, year) {
         console.log('Party selected:', party, 'for year:', year);
-        // Implement party selection logic here, for example:
-        // map.setFilter('your-layer', ['==', 'party', party]);
-        // map.setYear(year);
-      }
+        if (map) {
+          map.currentYear = year.toString();  // Ensure currentYear is updated
+          map.currentFill = party; // Update currentFill
+          map.setMapFill(); // Apply the changes to the map
+        }
+      };
 
       // Initialize with the default year
       updatePartyButtons(2024);
