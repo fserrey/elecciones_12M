@@ -29,7 +29,8 @@ window._partyColors = {
     "PSC": "#e02020", 
     "ECP": "#9370DB",
     "ECP-PEC": "#9370DB",
-    "PDECAT":"#1C4C96",
+    "PDECAT":"#006EB1",
+    "ALIANZACAT":"#174F82",
     
     "PCTE": "#E3061A",
     "EXISTE": "#007F51",

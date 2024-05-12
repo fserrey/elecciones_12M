@@ -452,6 +452,13 @@ class ElectionMap {
 
   setLegend(scaleName) {
     console.log("Setting legend for:", scaleName);
+    // no legend for winner
+    if (scaleName.startsWith('winner')) {
+      document.getElementById('legends').classList.add('hidden');
+      console.log("No legend for winners.");
+      return;
+    }
+//
     if (!this.legendLabels[scaleName]) {
       // if clicked legend it's empty, hide legends box
       console.log("No legend labels found for:", scaleName);
@@ -478,6 +485,10 @@ class ElectionMap {
   setMapFill() {
   //
     const fillName = `${this.currentFill.toLowerCase()}${this.currentYear}`;
+    if (!this.map.getLayer(this.fillLayerId)) {
+      console.log(`Layer ${this.fillLayerId} does not exist yet.`);
+      return; // Stop the function if the layer isn't found
+  }
     this.map.setFilter(this.fillLayerId, this.fillLayerFilter[fillName]);
     this.map.setPaintProperty(this.fillLayerId, 'fill-color', this.fillLayerFillColor[fillName]);
     this.map.setPaintProperty(this.fillLayerId, 'fill-opacity', this.fillLayerFillOpacity[fillName]);

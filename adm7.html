@@ -71,7 +71,7 @@
         // hash: true,
         scrollZoom: true,
         years: [2021, 2024],
-        parties: ['PP', 'PSOE', 'CS', 'ERC', 'PSC', 'JXCAT','PDECAT','UP','ECP','CUP','COMUNS', 'SUMAR', 'VOX'],
+        parties: ['PP', 'PSOE', 'CS', 'ERC', 'PSC', 'JXCAT','PDECAT','UP','ECP','CUP','COMUNS', 'SUMAR', 'VOX', 'winner','ALIANZACAT'],
         partyColors: window._partyColors,
       });
       mapLoaded = true;
@@ -86,21 +86,21 @@
       })
     } else loadMap(); 
 
-      const partyData = {
-        2024: ['Ganador', 'PSC', 'ERC', 'JXCAT', 'VOX', 'Sumar', 'CUP', 'CS', 'PP'],
-        2021: ['Ganador', 'PSC', 'ERC', 'JXCAT', 'VOX', 'ECP', 'CUP', 'CS', 'PP']
+    const partyData = {
+        2024: { 'Ganador': 'winner', 'PSC': 'PSC', 'ERC': 'ERC', 'JXCAT': 'JXCAT', 'VOX': 'VOX', 'Sumar': 'Sumar', 'CUP': 'CUP', 'CS': 'CS', 'PP': 'PP', 'ALIZANÇA.CAT':'ALIANZACAT' },
+        2021: { 'Ganador': 'winner', 'PSC': 'PSC', 'ERC': 'ERC', 'JXCAT': 'JXCAT', 'VOX': 'VOX', 'ECP': 'ECP', 'CUP': 'CUP', 'CS': 'CS', 'PP': 'PP' }
       };
 
       window.updatePartyButtons = function (year) {
         const container = document.getElementById('party-controls');
         container.innerHTML = ''; 
 
-        partyData[year].forEach(party => {
+        Object.entries(partyData[year]).forEach(([displayName, dataValue]) => {
           let button = document.createElement('button');
           button.className = 'map-control map-control--fill js-control';
-          button.dataset.fill = party;
-          button.textContent = party;
-          button.onclick = function () { selectParty(party, year); };
+          button.dataset.fill = dataValue;
+          button.textContent = displayName;
+          button.onclick = function () { selectParty(dataValue, year); };
           container.appendChild(button);
         });
 
