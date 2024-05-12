@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,66 +9,31 @@
   <meta http-equiv='expires' content='0'>
   <meta http-equiv='pragma' content='no-cache'>
   <title>Elecciones Parlamento Catalunya 2024 - Municipios - La Vanguardia</title>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" rel="stylesheet" type="text/css" />
+  <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css"
+    rel="stylesheet" type="text/css" />
+  <link href="./styles.css" rel="stylesheet" type="text/css" />
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" rel="stylesheet" type="text/css"/>
-  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css" rel="stylesheet" type="text/css"/>
-  <link href="./styles.css" rel="stylesheet" type="text/css"/>
+  <script
+    src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js"></script>
 </head>
+
 <body>
   <div class="map-wrapper">
     <div id="map-container"></div>
-
-    <!-- map controls -->
-    <div id="custom-controls" class="map-overflow map-controls hidden">
+    <div id="custom-controls" class="map-overflow map-controls" style="visibility: visible;">
+      <!-- Removed hidden class and added inline style for visibility -->
       <div class="map-overflow-wrap">
         <div class="map-controls-hint">Selecciona un mapa:</div>
         <div class="map-controls-years">
-          <button class="map-control map-control--year js-year is-active" data-year="2024">2024</button>
-          <button class="map-control map-control--year js-year" data-year="2021">2021</button>
-          <!-- <button class="map-control map-control--year js-year" data-year="diff">Diff</button> -->
+          <button class="map-control map-control--year" data-year="2024"
+            onclick="updatePartyButtons(2024)">2024</button>
+          <button class="map-control map-control--year" data-year="2021"
+            onclick="updatePartyButtons(2021)">2021</button>
         </div>
-        <div class="map-controls-fill">
-          <!-- Botones para 2024 -->
-          <button class="map-control map-control--fill js-control" data-fill="PSC" data-year="2024">PSC</button>
-          <button class="map-control map-control--fill js-control" data-fill="ERC" data-year="2024">ERC</button>
-          <button class="map-control map-control--fill js-control" data-fill="JXCAT" data-year="2024">JUNTS</button>
-          <button class="map-control map-control--fill js-control" data-fill="VOX" data-year="2024">VOX</button>
-          <button class="map-control map-control--fill js-control" data-fill="SUMAR" data-year="2024">SUMAR</button>
-          <button class="map-control map-control--fill js-control" data-fill="CUP" data-year="2024">CUP</button>
-          <button class="map-control map-control--fill js-control" data-fill="CS" data-year="2024">CS</button>
-          <button class="map-control map-control--fill js-control" data-fill="PP" data-year="2024">PP</button>
-          
-          <!-- Botones para 2021 -->
-          <button class="map-control map-control--fill js-control" data-fill="PSC" data-year="2021">PSC</button>
-          <button class="map-control map-control--fill js-control" data-fill="ERC" data-year="2021">ERC</button>
-          <button class="map-control map-control--fill js-control" data-fill="JXCAT" data-year="2021">JUNTS</button>
-          <button class="map-control map-control--fill js-control" data-fill="VOX" data-year="2021">VOX</button>
-          <button class="map-control map-control--fill js-control" data-fill="CUP" data-year="2021">CUP</button>
-          <button class="map-control map-control--fill js-control" data-fill="CS" data-year="2021">CS</button>
-          <button class="map-control map-control--fill js-control" data-fill="PP" data-year="2021">PP</button>
-          <button class="map-control map-control--fill js-control" data-fill="ECP" data-year="2021">ECP</button>
-        <!--
-          <button class="map-control map-control--fill js-control is-active" data-fill="winner">Ganador</button>
-          <button class="map-control map-control--fill js-control" data-fill="PSC">PSC</button>
-          <button class="map-control map-control--fill js-control" data-fill="ERC">ERC</button>
-          <button class="map-control map-control--fill js-control" data-fill="JXCAT">JUNTS</button>
-          <button class="map-control map-control--fill js-control" data-fill="VOX">VOX</button>
-          
-          <button class="map-control map-control--fill js-control" data-fill="CUP">CUP</button>
-          <button class="map-control map-control--fill js-control" data-fill="Sumar">SUMAR</button>
-
-          <button class="map-control map-control--fill js-control" data-fill="UP">ECP</button>
-
-          <button class="map-control map-control--fill js-control" data-fill="PP">PP</button>
-
-          <button class="map-control map-control--fill js-control" data-fill="Bloques">Bloques</button>
-          //-->
-        </div>
+        <div class="map-controls-fill" id="party-controls"></div>
       </div>
     </div>
-    <!-- end map controls -->
-
     <!-- map zoom out -->
     <div id="custom-buttons" class="map-overflow map-buttons hidden">
       <button id="zoom-out" class="zoom-out" title="Zoom out">
@@ -84,48 +50,90 @@
       </div>
     </div>
     <!-- end legend -->
-
   </div>
   <script src="./map.js"></script>
   <script src="./partyColors.js"></script>
   <script>
-    let mapLoaded = false;
-    mapboxgl.clearStorage();
+    document.addEventListener('DOMContentLoaded', function () {
+      let mapLoaded = false;
+      mapboxgl.clearStorage();
+      const loadMap = () => {
+        const isMobile = window.innerWidth < 900;
+        const map = new ElectionMap('pk.eyJ1IjoibGF1cjA1IiwiYSI6ImNqdnoyaTd3cDBrNjk0NW1xdGpyYWttenIifQ.K5bENvQciGvPOfnO9ERWzw', {
+          container: 'map-container',
+          style: 'mapbox://styles/laur05/cli8rqg7a02qn01pr8qu2gh5e',
+          source: 'mapbox://laur05.electionscat2024_adm4?fresh=true',
+          sourceLayer: 'electionscat2024_adm4',
+          center: [1.55, 41.82],
+          zoom: isMobile ? 7 : 8,
+          minZoom: isMobile ? 5.5 : 6,
+          initialSelect: 'winner2024',
+          // hash: true,
+          scrollZoom: true,
+          years: [2021, 2024],
+          parties: ['PP', 'PSOE', 'CS', 'ERC', 'PSC', 'JXCAT', 'PDECAT', 'ECP', 'CUP', 'COMUNS', 'SUMAR', 'VOX'],
+          partyColors: window._partyColors,
+        });
+        mapLoaded = true;
+      };
+      loadMap(); // Load the map immediately after defining
 
-    const loadMap = () => {
-      const isMobile = window.innerWidth < 900;
-      const map = new ElectionMap('pk.eyJ1IjoiZnNlcnJleSIsImEiOiJjbHVyNm9uMzEwNDJrMmlxcmllbnk0N2VzIn0.uoB9jWL2GB82Lzv12t4e1Q', {
-        container: 'map-container',
-        style: 'mapbox://styles/laur05/cli8rqg7a02qn01pr8qu2gh5e', 
-        source: 'mapbox://fserrey.electionscat2024_adm4?fresh=true',       
-        sourceLayer: 'electionscat2024_adm4',
-        center: [1.55, 41.82],
-        zoom: isMobile ? 7 : 8,
-        minZoom: isMobile ? 5.5 : 6,
-        initialSelect: 'winner2024',
-        // hash: true,
-        scrollZoom: true,
-        years: [2021, 2024],
-        parties: ['PP', 'PSOE', 'CS', 'ERC', 'PSC', 'JXCAT','PDCAT','UP','CUP','COMUNS', 'SUMAR', 'VOX'],
-        partyColors: window._partyColors,
-      });
-      mapLoaded = true;
-    }
+      const partyData = {
+        2024: ['Ganador', 'PSC', 'ERC', 'JXCAT', 'VOX', 'Sumar', 'CUP', 'CS', 'PP'],
+        2021: ['Ganador', 'PSC', 'ERC', 'JXCAT', 'VOX', 'ECP', 'CUP', 'CS', 'PP']
+      };
 
-    // Remove Mapbox service worker cache
-    if (caches && caches.keys()) {
-      caches.keys().then((keys) => {
-        Promise.all(keys.filter((k) => k === 'mapbox-tiles').map((k) => caches.delete(k)))
-          .then(() => { loadMap() })
-          .catch(() => { loadMap() });
-      })
-    } else loadMap();
+      window.updatePartyButtons = function (year) {
+        const container = document.getElementById('party-controls');
+        container.innerHTML = ''; // Clear existing buttons
 
-    // Fallback if map has not been loaded
-    setTimeout(() => {
-      if (!mapLoaded) loadMap();
-    }, 4000);
-    
+        partyData[year].forEach(party => {
+          let button = document.createElement('button');
+          button.className = 'map-control map-control--fill js-control';
+          button.dataset.fill = party;
+          button.textContent = party;
+          button.onclick = function () { selectParty(party, year); };
+          container.appendChild(button);
+        });
+
+        // Update the style of year buttons
+        const yearBtns = document.querySelectorAll('.map-control--year');
+        yearBtns.forEach(btn => {
+          if (btn.dataset.year === year.toString()) {
+            btn.classList.add('bold-button'); // Add bold style to clicked button
+          } else {
+            btn.classList.remove('bold-button'); // Remove bold style from other buttons
+          }
+        });
+
+        if (caches && caches.keys()) {
+          caches.keys().then((keys) => {
+            Promise.all(keys.filter((k) => k === 'mapbox-tiles').map((k) => caches.delete(k)))
+              .then(() => { loadMap() })
+              .catch(() => { loadMap() });
+          })
+          const yearBtn = document.getElementsByClassName('map-control--year');
+
+        } else loadMap();
+
+        // Optionally set an 'active' class on the first button
+        if (container.firstChild) {
+          container.firstChild.classList.add('is-active');
+        }
+      };
+
+      function selectParty(party, year) {
+        console.log('Party selected:', party, 'for year:', year);
+        // Implement party selection logic here, for example:
+        // map.setFilter('your-layer', ['==', 'party', party]);
+        // map.setYear(year);
+      }
+
+      // Initialize with the default year
+      updatePartyButtons(2024);
+    });
+  </script>
   </script>
 </body>
+
 </html>
