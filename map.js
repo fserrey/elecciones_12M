@@ -73,8 +73,6 @@ class ElectionMap {
       this.addButtonsListeners();
       this.showButtons();
       this.setLegend(this.initialSelect);
-      this.logInitialParties();  // Call the logging function when the map is loaded
-      this.logSourceData();
 
     });
     this.map.on('mousemove', this.fillLayerId, (e) => {
@@ -270,7 +268,7 @@ class ElectionMap {
       language: 'es',
       country: 'es',
       types: 'region,place,locality,address',
-      placeholder: 'Busca tu calle',
+      placeholder: 'Busca tu ubicación',
     }));
   }
 

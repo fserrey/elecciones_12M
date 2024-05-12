@@ -72,7 +72,7 @@
           // hash: true,
           scrollZoom: true,
           years: [2021, 2024],
-          parties: ['PP', 'PSOE', 'CS', 'ERC', 'PSC', 'JXCAT', 'PDECAT', 'ECP', 'CUP', 'COMUNS', 'SUMAR', 'VOX', 'winner', 'ALIANZACAT'],
+          parties: ['PP', 'PSOE', 'CS', 'ERC', 'PSC', 'JXCAT', 'PDECAT', 'ECP', 'CUP', 'COMUNS', 'SUMAR', 'VOX', 'winner', 'ALIANZACAT', 'JUNTS'],
           partyColors: window._partyColors,
         });
         mapLoaded = true;
@@ -97,16 +97,18 @@
           container.appendChild(button);
         });
 
-        //if (map && mapLoaded) {
-        //  map.currentYear = year.toString();
-        //  selectParty(`winner${year}`, year); // This uses dynamic key based on the year
-        //
-        //}
-        if (year === 2021) {
-          selectParty('winner2021', year);
-        } else {
-          selectParty(`winner${year}`, year); // For other years, maintain existing logic
+        if (map && mapLoaded) {
+          map.currentYear = year.toString();
+          map.currentFill = 'winner';
+          map.setMapFill();
+          // selectParty(`winner${year}`, year); // This uses dynamic key based on the year
+        
         }
+        // if (year === 2021) {
+        //   selectParty('winner2021', year);
+        // } else {
+        //   selectParty(`winner${year}`, year); // For other years, maintain existing logic
+        // }
 
         // Update the style of year buttons
         const yearBtns = document.querySelectorAll('.map-control--year');
@@ -135,9 +137,9 @@
       window.selectParty = function (party, year) {
         console.log('Party selected:', party, 'for year:', year);
         if (map) {
-          map.currentYear = year.toString();  // Ensure currentYear is updated
-          map.currentFill = party; // Update currentFill
-          map.setMapFill(); // Apply the changes to the map
+          map.currentYear = year.toString();  
+          map.currentFill = party; 
+          map.setMapFill(); 
         }
       };
 
