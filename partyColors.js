@@ -7,6 +7,7 @@ window._partyColors = {
     "CS": "#ea8046",
     "JXCAT": "#3FE1D2",
     "JXCATJUNTS": "#3FE1D2",
+    "JUNTSXCAT": "#3FE1D2",
     "JUNTS": "#3FE1D2",
     "ERC": "#FFB232",
     "CUP": "#FEED14",

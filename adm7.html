@@ -71,7 +71,7 @@
         // hash: true,
         scrollZoom: true,
         years: [2021, 2024],
-        parties: ['PP', 'PSOE', 'CS', 'ERC', 'PSC', 'JXCAT','PDECAT','UP','ECP','CUP','COMUNS', 'SUMAR', 'VOX','ALIANZACAT'],
+        parties: ['PP', 'PSOE', 'CS', 'ERC', 'PSC','JUNTSXCAT', 'JXCAT','PDECAT','UP','ECP','CUP','COMUNS', 'SUMAR', 'VOX','ALIANZACAT'],
         partyColors: window._partyColors,
       });
       mapLoaded = true;
@@ -87,8 +87,8 @@
     } else loadMap(); 
 
     const partyData = {
-        2024: { 'Ganador': 'winner', 'PSC': 'PSC', 'ERC': 'ERC', 'Junts': 'JXCAT', 'Vox': 'VOX', 'Sumar': 'Sumar', 'CUP': 'CUP', 'CS': 'CS', 'PP': 'PP', 'Aliança Cat':'ALIANZACAT' },
-        2021: { 'Ganador': 'winner', 'PSC': 'PSC', 'ERC': 'ERC', 'JXCAT': 'JXCAT', 'VOX': 'VOX', 'ECP': 'ECP', 'CUP': 'CUP', 'CS': 'CS', 'PP': 'PP' }
+        2024: { 'Ganador': 'winner', 'PSC': 'PSC', 'ERC': 'ERC', 'Junts': 'JUNTSXCAT', 'Vox': 'VOX', 'Sumar': 'Sumar', 'CUP': 'CUP', 'CS': 'CS', 'PP': 'PP', 'Aliança Cat':'ALIANZACAT' },
+        2021: { 'Ganador': 'winner', 'PSC': 'PSC', 'ERC': 'ERC', 'Junts': 'JUNTSXCAT', 'VOX': 'VOX', 'ECP': 'ECP', 'CUP': 'CUP', 'CS': 'CS', 'PP': 'PP' }
       };
 
       window.updatePartyButtons = function (year) {
