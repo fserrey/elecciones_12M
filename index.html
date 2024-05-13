@@ -83,10 +83,10 @@
       };
 
       window.updatePartyButtons = function (year) {
-        console.log('updatePartyButtons called with year:', year);
         const container = document.getElementById('party-controls');
         container.innerHTML = ''; // Clear existing buttons
-
+        
+        let winnerButton;
         Object.entries(partyData[year]).forEach(([displayName, dataValue]) => {
           let button = document.createElement('button');
           button.className = 'map-control map-control--fill js-control';
@@ -108,13 +108,7 @@
           map.setMapFill();
         
         }
-        // if (year === 2021) {
-        //   selectParty('winner2021', year);
-        // } else {
-        //   selectParty(`winner${year}`, year); // For other years, maintain existing logic
-        // }
-
-        // Update the style of year buttons
+        
         const yearBtns = document.querySelectorAll('.map-control--year');
         yearBtns.forEach(btn => {
           if (btn.dataset.year === year.toString()) {
