@@ -72,7 +72,7 @@
           // hash: true,
           scrollZoom: true,
           years: [2021, 2024],
-          parties: ['PP', 'PSOE', 'CS', 'ERC', 'PSC', 'JXCAT','JUNTSXCAT', 'PDECAT', 'ECP', 'CUP', 'COMUNS', 'SUMAR', 'VOX', 'ALIANZACAT', 'JUNTS'],
+          parties: ['PP', 'PSOE', 'CS', 'ERC', 'PSC', 'JXCAT', 'JUNTSXCAT', 'PDECAT', 'ECP', 'CUP', 'COMUNS', 'SUMAR', 'VOX', 'ALIANZACAT', 'JUNTS'],
           partyColors: window._partyColors,
         });
         mapLoaded = true;
@@ -80,7 +80,7 @@
       loadMap(); // Load the map immediately after defining
 
       const partyData = {
-        2024: { 'Ganador': 'winner', 'PSC': 'PSC', 'ERC': 'ERC', 'Junts': 'JUNTSXCAT', 'Vox': 'VOX', 'Sumar': 'Sumar', 'CUP': 'CUP', 'CS': 'CS', 'PP': 'PP', 'Aliança Cat': 'ALIANZACAT' },
+        2024: { 'Ganador': 'winner', 'PSC': 'PSC', 'ERC': 'ERC', 'Junts': 'JXCAT', 'Vox': 'VOX', 'Sumar': 'Sumar', 'CUP': 'CUP', 'CS': 'CS', 'PP': 'PP', 'Aliança Cat': 'ALIANZACAT' },
         2021: { 'Ganador': 'winner', 'PSC': 'PSC', 'ERC': 'ERC', 'Junts': 'JXCAT', 'Vox': 'VOX', 'ECP': 'ECP', 'CUP': 'CUP', 'CS': 'CS', 'PP': 'PP' }
       };
 
@@ -136,11 +136,18 @@
 
       window.selectParty = function (party, year) {
         console.log('selectParty called with party:', party, 'and year:', year);
-        console.log('Party selected:', party, 'for year:', year);
+        console.log(`Full legend identifier being passed: ${party}${year}`);
+        let effectiveParty;
+        if (party.startsWith('winner')) {
+          effectiveParty = 'winner'; // Use just 'winner' without the year
+        } else {
+          effectiveParty = party + year; // Append the year for other parties
+        }
+
         if (map) {
           map.currentYear = year.toString();
-          map.currentFill = party;
-          map.setMapFill();
+          map.currentFill = effectiveParty;
+          map.setMapFill(); // This will now handle setting the correct fill and legend
         }
       };
 
