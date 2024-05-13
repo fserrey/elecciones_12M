@@ -26,10 +26,8 @@
       <div class="map-overflow-wrap">
         <div class="map-controls-hint">Selecciona un año y partido:</div>
         <div class="map-controls-years">
-          <button class="map-control map-control--year" data-year="2024"
-            onclick="updatePartyButtons(2024)">2024</button>
-          <button class="map-control map-control--year" data-year="2021"
-            onclick="updatePartyButtons(2021)">2021</button>
+          <button class="map-control map-control--year" data-year="2024" onclick="updatePartyButtons(2024)">2024</button>
+          <button class="map-control map-control--year" data-year="2021" onclick="updatePartyButtons(2021)">2021</button>
         </div>
         <div class="map-controls-fill" id="party-controls"></div>
       </div>
@@ -72,7 +70,7 @@
           // hash: true,
           scrollZoom: true,
           years: [2021, 2024],
-          parties: ['PP', 'PSOE', 'CS', 'ERC', 'PSC', 'JXCAT', 'PDECAT', 'ECP', 'CUP', 'COMUNS', 'SUMAR', 'VOX', 'winner', 'ALIANZACAT', 'JUNTS'],
+          parties: ['PP', 'PSOE', 'CS', 'ERC', 'PSC', 'JXCAT', 'PDECAT', 'ECP', 'CUP', 'COMUNS', 'SUMAR', 'VOX', 'ALIANZACAT', 'JUNTS'],
           partyColors: window._partyColors,
         });
         mapLoaded = true;
@@ -85,6 +83,7 @@
       };
 
       window.updatePartyButtons = function (year) {
+        console.log('updatePartyButtons called with year:', year);
         const container = document.getElementById('party-controls');
         container.innerHTML = ''; // Clear existing buttons
 
@@ -93,7 +92,13 @@
           button.className = 'map-control map-control--fill js-control';
           button.dataset.fill = dataValue;
           button.textContent = displayName;
-          button.onclick = function () { selectParty(dataValue, year); };
+          if (year === 2021) {
+            button.onclick = function () { selectParty('winner', year); };
+          } else {
+            button.onclick = function () { selectParty(`winner${year}`, year); };
+          }
+          container.appendChild(button);
+          //button.onclick = function () { selectParty(dataValue, year); };
           container.appendChild(button);
         });
 
@@ -101,7 +106,6 @@
           map.currentYear = year.toString();
           map.currentFill = 'winner';
           map.setMapFill();
-          // selectParty(`winner${year}`, year); // This uses dynamic key based on the year
         
         }
         // if (year === 2021) {
@@ -135,6 +139,7 @@
       };
 
       window.selectParty = function (party, year) {
+        console.log('selectParty called with party:', party, 'and year:', year);
         console.log('Party selected:', party, 'for year:', year);
         if (map) {
           map.currentYear = year.toString();  
