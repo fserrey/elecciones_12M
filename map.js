@@ -144,23 +144,81 @@ class ElectionMap {
     });
   }
 
-  setLegendScales(years, parties) {
-    this.legendScales = {
-      winnerdiff: [
-        {color: "#7fbc41", label: 'Mismo partido',},
-        {color: "#d6604d", label: 'Diferente partido',},
-      ],
-      bloquesdiff: [
-        {color: this.colorScales.RdBu[1], label: '+50 izq'},
-        {color: this.colorScales.RdBu[5], label: '+30'},
-        {color: this.colorScales.RdBu[9], label: '+10'},
-        {color: this.colorScales.RdBu[13], label: '+10'},
-        {color: this.colorScales.RdBu[17], label: '+30'},
-        {color: this.colorScales.RdBu[21], label: '+50 der'},
-      ],
-    };
-    parties.forEach((party) => {
-      this.legendScales[`${party.toLowerCase()}diff`] = [
+//   setLegendScales(years, parties) {
+//     this.legendScales = {
+//       winnerdiff: [
+//         {color: "#7fbc41", label: 'Mismo partido',},
+//         {color: "#d6604d", label: 'Diferente partido',},
+//       ],
+//       bloquesdiff: [
+//         {color: this.colorScales.RdBu[1], label: '+50 izq'},
+//         {color: this.colorScales.RdBu[5], label: '+30'},
+//         {color: this.colorScales.RdBu[9], label: '+10'},
+//         {color: this.colorScales.RdBu[13], label: '+10'},
+//         {color: this.colorScales.RdBu[17], label: '+30'},
+//         {color: this.colorScales.RdBu[21], label: '+50 der'},
+//       ],
+//     };
+//     parties.forEach((party) => {
+//       this.legendScales[`${party.toLowerCase()}diff`] = [
+//         {color: this.colorScales.PiGY[1], label: '-50',},
+//         {color: this.colorScales.PiGY[5], label: '-30',},
+//         {color: this.colorScales.PiGY[9], label: '-10',},
+//         {color: this.colorScales.PiGY[13], label: '+10',},
+//         {color: this.colorScales.PiGY[17], label: '+30',},
+//         {color: this.colorScales.PiGY[21], label: '+50',},
+//       ];
+//       years.forEach((year) => {
+//         this.legendScales[`${party.toLowerCase()}${year}`] = [
+//           {color: `${this.partyColors[party.toUpperCase()]}0d`, label: '0-10',},
+//           {color: `${this.partyColors[party.toUpperCase()]}33`, label: '10-20',},
+//           {color: `${this.partyColors[party.toUpperCase()]}66`, label: '20-30',},
+//           {color: `${this.partyColors[party.toUpperCase()]}99`, label: '30-40',},
+//           {color: `${this.partyColors[party.toUpperCase()]}cc`, label: '+40',},
+//         ];
+//       });
+//     });
+// 
+//     years.forEach((year) => {
+//       this.legendScales[`bloques${year}`] = [
+//         {color: this.colorScales.RdBu[1], label: '+50 izq',},
+//         {color: this.colorScales.RdBu[5], label: '+30',},
+//         {color: this.colorScales.RdBu[9], label: '+10',},
+//         {color: this.colorScales.RdBu[13], label: '+10',},
+//         {color: this.colorScales.RdBu[17], label: '+30',},
+//         {color: this.colorScales.RdBu[21], label: '+50 der',},
+//       ];
+//     });
+//   }
+setLegendScales(years, parties) {
+  this.legendScales = {
+    winnerdiff: [
+      {color: "#7fbc41", label: 'Mismo partido',},
+      {color: "#d6604d", label: 'Diferente partido',},
+    ],
+    bloquesdiff: [
+      {color: this.colorScales.RdBu[1], label: '+50 izq'},
+      {color: this.colorScales.RdBu[5], label: '+30'},
+      {color: this.colorScales.RdBu[9], label: '+10'},
+      {color: this.colorScales.RdBu[13], label: '+10'},
+      {color: this.colorScales.RdBu[17], label: '+30'},
+      {color: this.colorScales.RdBu[21], label: '+50 der'},
+    ],
+  };
+
+  parties.forEach((party) => {
+    let scales;
+    if (party.toLowerCase() === 'alianzacat') {
+      scales = [
+        {color: this.colorScales.PiGY[1], label: '-30',},
+        {color: this.colorScales.PiGY[5], label: '-20',},
+        {color: this.colorScales.PiGY[9], label: '-10',},
+        {color: this.colorScales.PiGY[13], label: '+10',},
+        {color: this.colorScales.PiGY[17], label: '+20',},
+        {color: this.colorScales.PiGY[21], label: '+30',},  // This will be the darkest color
+      ];
+    } else {
+      scales = [
         {color: this.colorScales.PiGY[1], label: '-50',},
         {color: this.colorScales.PiGY[5], label: '-30',},
         {color: this.colorScales.PiGY[9], label: '-10',},
@@ -168,28 +226,44 @@ class ElectionMap {
         {color: this.colorScales.PiGY[17], label: '+30',},
         {color: this.colorScales.PiGY[21], label: '+50',},
       ];
-      years.forEach((year) => {
-        this.legendScales[`${party.toLowerCase()}${year}`] = [
+    }
+
+    this.legendScales[`${party.toLowerCase()}diff`] = scales;
+
+    years.forEach((year) => {
+      let yearScales;
+      if (party.toLowerCase() === 'alianzacat') {
+        yearScales = [
+          {color: `${this.partyColors[party.toUpperCase()]}0d`, label: '0-10',},
+          {color: `${this.partyColors[party.toUpperCase()]}33`, label: '10-20',},
+          {color: `${this.partyColors[party.toUpperCase()]}66`, label: '20-30',},
+          {color: `${this.partyColors[party.toUpperCase()]}99`, label: '+30',},  
+        ];
+      } else {
+        yearScales = [
           {color: `${this.partyColors[party.toUpperCase()]}0d`, label: '0-10',},
           {color: `${this.partyColors[party.toUpperCase()]}33`, label: '10-20',},
           {color: `${this.partyColors[party.toUpperCase()]}66`, label: '20-30',},
           {color: `${this.partyColors[party.toUpperCase()]}99`, label: '30-40',},
           {color: `${this.partyColors[party.toUpperCase()]}cc`, label: '+40',},
         ];
-      });
+      }
+      this.legendScales[`${party.toLowerCase()}${year}`] = yearScales;
     });
+  });
 
-    years.forEach((year) => {
-      this.legendScales[`bloques${year}`] = [
-        {color: this.colorScales.RdBu[1], label: '+50 izq',},
-        {color: this.colorScales.RdBu[5], label: '+30',},
-        {color: this.colorScales.RdBu[9], label: '+10',},
-        {color: this.colorScales.RdBu[13], label: '+10',},
-        {color: this.colorScales.RdBu[17], label: '+30',},
-        {color: this.colorScales.RdBu[21], label: '+50 der',},
-      ];
-    });
-  }
+  years.forEach((year) => {
+    this.legendScales[`bloques${year}`] = [
+      {color: this.colorScales.RdBu[1], label: '+50 izq',},
+      {color: this.colorScales.RdBu[5], label: '+30',},
+      {color: this.colorScales.RdBu[9], label: '+10',},
+      {color: this.colorScales.RdBu[13], label: '+10',},
+      {color: this.colorScales.RdBu[17], label: '+30',},
+      {color: this.colorScales.RdBu[21], label: '+50 der',},
+    ];
+  });
+}
+
 
   setLayerOptions(years, parties) {
     this.fillLayerFillColor = {
